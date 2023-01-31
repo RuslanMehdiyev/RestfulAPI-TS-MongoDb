@@ -47,14 +47,13 @@ const productController = {
     let id = req.params.id;
     product.findByIdAndUpdate(
       id,
-      // { runValidators: true },
       { $set: req.body },
-      { new: true },
+      { new: true, runValidators: true },
       (err, doc) => {
         if (!err) {
           res.status(201).json(doc);
         } else {
-          console.log(err);
+          console.log(err.message);
           res.status(500).json(err.message);
         }
       }

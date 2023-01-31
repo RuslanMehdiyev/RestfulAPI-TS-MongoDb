@@ -14,6 +14,8 @@ app.use(
   })
 );
 
+mongoose.set("strictQuery", true);
+
 mongoose
   .connect(
     "mongodb+srv://RuslanMehdiyev:daqestan001@cluster0.rkskyqr.mongodb.net/code_academyDB"

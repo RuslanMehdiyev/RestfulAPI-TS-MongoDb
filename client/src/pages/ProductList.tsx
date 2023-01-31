@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { Product } from "../models/products/ProductModel";
 import { ProductService } from "../services/productService/ProductService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductList() {
   const productService = new ProductService();
@@ -30,7 +32,10 @@ function ProductList() {
   };
 
   const handleDelete = (id: string) => {
-    productService.delete(`/${id}`).then(() => refetch());
+    productService.delete(`/${id}`).then(() => {
+      refetch();
+      toast.warning("Product deleted");
+    });
   };
   const showModal = () => {
     setModalType(false);
@@ -40,7 +45,15 @@ function ProductList() {
 
   const handleOk = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    productService.add("", newData).then(() => refetch());
+    productService
+      .add("", newData)
+      .then(() => {
+        refetch();
+        toast.success("Product added");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
     setOpen(false);
     setNewData({ _id: "", name: "", description: "", date: "" });
   };
@@ -63,7 +76,15 @@ function ProductList() {
   const handleUpdate = (event: any) => {
     event.preventDefault();
     setOpen(false);
-    productService.update(`/${newData._id}`, newData).then(() => refetch());
+    productService
+      .update(`/${newData._id}`, newData)
+      .then(() => {
+        refetch();
+        toast.success("Product updated");
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
   };
 
   if (isLoading) {
@@ -72,6 +93,7 @@ function ProductList() {
 
   return (
     <div className="products">
+      <ToastContainer />
       <div className="products-header">
         <h1>Products</h1>
         <button onClick={showModal} className="add">
@@ -133,7 +155,7 @@ function ProductList() {
             name="name"
             onChange={handleInput}
             value={newData.name}
-            required
+            // required
           />
           <label id="name">Description</label>
           <input
@@ -142,7 +164,7 @@ function ProductList() {
             name="description"
             onChange={handleInput}
             value={newData.description}
-            required
+            // required
           />
           <div>
             <button className="add">{modalType ? "Update" : "Add"}</button>
