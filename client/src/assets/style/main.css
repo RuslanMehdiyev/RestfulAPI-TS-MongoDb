@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.products {
+  padding: 1rem;
+}
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+button {
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: 0.3s;
+}
+button:hover {
+  opacity: 0.6;
+}
+.add {
+  background-color: darkgreen;
+}
+.update {
+  background-color: green;
+}
+.delete {
+  background-color: red;
+}
